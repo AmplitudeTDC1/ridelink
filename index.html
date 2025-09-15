@@ -1,192 +1,498 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>RideLink Concierge</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RideLink Concierge</title>
 
-  <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- Swiper CSS -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />
+    <!-- Swiper CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css"
+    />
 
-  <!-- Custom CSS -->
-  <link rel="stylesheet" href="styles.css" />
-</head>
-<body class="bg-white text-gray-800">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="bg-white text-gray-800">
+    <!-- NAVIGATION -->
+    <header class="fixed top-0 left-0 w-full bg-white shadow z-50">
+      <div class="max-w-7xl mx-auto flex items-center justify-between p-4">
+        <!-- Logo -->
+        <a href="index.html" class="flex items-center">
+          <img
+            src="assets/images/logo image 1.png"
+            alt="RideLink Logo"
+            class="h-14 w-auto sm:h-16 md:h-20 lg:h-24 xl:h-28"
+          />
+        </a>
 
-<!-- NAVIGATION -->
-<header class="fixed top-0 left-0 w-full bg-white shadow z-50">
-  <div class="max-w-7xl mx-auto flex items-center justify-between p-4">
-    
-    <!-- Logo -->
-    <a href="index.html" class="flex items-center">
-      <img src="assets/images/logo image 1.png" alt="RideLink Logo" class="h-14 w-auto sm:h-16 md:h-20 lg:h-24 xl:h-28">
-    </a>
+        <!-- Desktop Navigation -->
+        <nav class="space-x-6 hidden md:flex">
+          <a href="#rider-section" class="hover:text-blue-600 font-medium"
+            >Riders</a
+          >
+          <a href="#driver-section" class="hover:text-blue-600 font-medium"
+            >Drivers</a
+          >
+          <a href="#about" class="hover:text-blue-600 font-medium">About</a>
+          <a href="#faq" class="hover:text-blue-600 font-medium">FAQ</a>
+          <a href="#contact" class="hover:text-blue-600 font-medium">Contact</a>
+        </nav>
 
-    <!-- Desktop Navigation -->
-    <nav class="space-x-6 hidden md:flex">
-      <a href="#rider-section" class="hover:text-blue-600 font-medium">Riders</a>
-      <a href="#driver-section" class="hover:text-blue-600 font-medium">Drivers</a>
-      <a href="#about" class="hover:text-blue-600 font-medium">About</a>
-      <a href="#contact" class="hover:text-blue-600 font-medium">Contact</a>
-    </nav>
+        <!-- Mobile Menu Button -->
+        <button
+          id="menu-btn"
+          class="md:hidden text-gray-800 focus:outline-none"
+        >
+          <!-- Hamburger Icon -->
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-8 w-8"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h16"
+            />
+          </svg>
+        </button>
+      </div>
 
-    <!-- Mobile Menu Button -->
-    <button id="menu-btn" class="md:hidden text-gray-800 focus:outline-none">
-      <!-- Hamburger Icon -->
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none"
-        viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-          d="M4 6h16M4 12h16M4 18h16" />
-      </svg>
-    </button>
-  </div>
+      <!-- Mobile Navigation -->
+      <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg">
+        <nav class="flex flex-col space-y-4 p-4">
+          <a href="#rider-section" class="hover:text-blue-600 font-medium"
+            >Riders</a
+          >
+          <a href="#driver-section" class="hover:text-blue-600 font-medium"
+            >Drivers</a
+          >
+          <a href="#about" class="hover:text-blue-600 font-medium">About</a>
+          <a href="#faq" class="hover:text-blue-600 font-medium">FAQ</a>
+          <a href="#contact" class="hover:text-blue-600 font-medium">Contact</a>
+        </nav>
+      </div>
+    </header>
 
-  <!-- Mobile Navigation -->
-  <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg">
-    <nav class="flex flex-col space-y-4 p-4">
-      <a href="#rider-section" class="hover:text-blue-600 font-medium">Riders</a>
-      <a href="#driver-section" class="hover:text-blue-600 font-medium">Drivers</a>
-      <a href="#about" class="hover:text-blue-600 font-medium">About</a>
-      <a href="#contact" class="hover:text-blue-600 font-medium">Contact</a>
-    </nav>
-  </div>
-</header>
+    <!-- Script to toggle mobile menu -->
+    <script>
+      const menuBtn = document.getElementById("menu-btn");
+      const mobileMenu = document.getElementById("mobile-menu");
 
-<!-- Script to toggle mobile menu -->
-<script>
-  const menuBtn = document.getElementById('menu-btn');
-  const mobileMenu = document.getElementById('mobile-menu');
+      menuBtn.addEventListener("click", () => {
+        mobileMenu.classList.toggle("hidden");
+      });
+    </script>
 
-  menuBtn.addEventListener('click', () => {
-    mobileMenu.classList.toggle('hidden');
-  });
-</script>
+    <!-- HERO + SWIPER SECTION -->
+    <section class="relative w-full h-screen md:h-[80vh] overflow-hidden">
+      <div class="swiper-container absolute top-0 left-0 w-full h-full">
+        <div class="swiper-wrapper">
+          <!-- Slide 1 -->
+          <div class="swiper-slide relative">
+            <img
+              src="assets/images/rider image 1.avif"
+              class="w-full h-full object-cover"
+            />
+            <div
+              class="absolute inset-0 bg-black bg-opacity-50 flex flex-col justify-center items-center text-center text-white px-4"
+            >
+              <h2
+                class="text-2xl md:text-4xl lg:text-5xl font-bold mb-2 animate-fadeInUp"
+              >
+                Ride in Total Comfort
+              </h2>
+              <p class="text-sm md:text-lg mb-4 animate-fadeInUp delay-200">
+                Clean vehicles, on-time bookings.
+              </p>
+              <a
+                href="#rider-section"
+                class="bg-green-600 hover:bg-green-700 px-4 md:px-6 py-2 md:py-3 text-sm md:text-base rounded shadow animate-fadeInUp delay-400"
+                >Join as Rider</a
+              >
+            </div>
+          </div>
 
-  <!-- HERO + SWIPER SECTION -->
-  <section class="relative w-full h-screen md:h-[80vh] overflow-hidden">
-    <div class="swiper-container absolute top-0 left-0 w-full h-full">
-      <div class="swiper-wrapper">
+          <!-- Slide 2 -->
+          <div class="swiper-slide relative">
+            <img
+              src="assets/images/driver image 2.avif"
+              class="w-full h-full object-cover"
+            />
+            <div
+              class="absolute inset-0 bg-black bg-opacity-50 flex flex-col justify-center items-center text-center text-white px-4"
+            >
+              <h2
+                class="text-2xl md:text-4xl lg:text-5xl font-bold mb-2 animate-fadeInUp"
+              >
+                Drive & Earn Consistently
+              </h2>
+              <p class="text-sm md:text-lg mb-4 animate-fadeInUp delay-200">
+                Get matched with serious riders only.
+              </p>
+              <a
+                href="#driver-section"
+                class="bg-blue-600 hover:bg-blue-700 px-4 md:px-6 py-2 md:py-3 text-sm md:text-base rounded shadow animate-fadeInUp delay-400"
+                >Join as Driver</a
+              >
+            </div>
+          </div>
 
-        <!-- Slide 1 -->
-        <div class="swiper-slide relative">
-          <img src="assets/images/rider image 1.avif" class="w-full h-full object-cover" />
-          <div class="absolute inset-0 bg-black bg-opacity-50 flex flex-col justify-center items-center text-center text-white px-4">
-            <h2 class="text-2xl md:text-4xl lg:text-5xl font-bold mb-2 animate-fadeInUp">Ride in Total Comfort</h2>
-            <p class="text-sm md:text-lg mb-4 animate-fadeInUp delay-200">Clean vehicles, on-time bookings.</p>
-            <a href="#rider-section" class="bg-green-600 hover:bg-green-700 px-4 md:px-6 py-2 md:py-3 text-sm md:text-base rounded shadow animate-fadeInUp delay-400">Join as Rider</a>
+          <!-- Slide 3 -->
+          <div class="swiper-slide relative">
+            <img
+              src="assets/images/bookings image 1.png"
+              class="w-full h-full object-cover"
+            />
+            <div
+              class="absolute inset-0 bg-black bg-opacity-50 flex flex-col justify-center items-center text-center text-white px-4"
+            >
+              <h2
+                class="text-2xl md:text-4xl lg:text-5xl font-bold mb-2 animate-fadeInUp"
+              >
+                Book Ahead, No Waiting
+              </h2>
+              <p class="text-sm md:text-lg mb-4 animate-fadeInUp delay-200">
+                Schedule rides. Save time. Arrive relaxed.
+              </p>
+              <a
+                href="#rider-section"
+                class="bg-green-600 hover:bg-green-700 px-4 md:px-6 py-2 md:py-3 text-sm md:text-base rounded shadow animate-fadeInUp delay-400"
+                >Book Now</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RIDER SECTION -->
+    <section id="rider-section" class="py-16 bg-gray-50">
+      <div class="max-w-6xl mx-auto px-6 text-center">
+        <h2 class="text-3xl font-bold mb-6 text-blue-600">
+          Why Ride with RideLink?
+        </h2>
+        <p class="mb-8 text-lg text-gray-700">
+          RideLink is not in competition with other e-hailing providers — instead, we
+          complement them by helping you connect with vetted drivers and clean,
+          air-conditioned vehicles. With us, you cut down waiting time, ride
+          only in comfort, and enjoy the assurance of safety.
+        </p>
+        <div class="grid md:grid-cols-3 gap-8">
+          <div class="p-6 bg-white rounded shadow">
+            <h3 class="text-xl font-semibold mb-2">No Waiting</h3>
+            <p>Book rides in advance and never get stranded.</p>
+          </div>
+          <div class="p-6 bg-white rounded shadow">
+            <h3 class="text-xl font-semibold mb-2">Comfort First</h3>
+            <p>Clean, spacious, air-conditioned cars only.</p>
+          </div>
+          <div class="p-6 bg-white rounded shadow">
+            <h3 class="text-xl font-semibold mb-2">Safe & Reliable</h3>
+            <p>Verified drivers with ratings and vehicle checks.</p>
+          </div>
+        </div>
+        <a
+          href="https://chat.whatsapp.com/rider-group-link"
+          target="_blank"
+          class="mt-8 inline-block bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded shadow"
+          >Join Rider WhatsApp Group</a
+        >
+      </div>
+    </section>
+
+    <!-- DRIVER SECTION -->
+    <section id="driver-section" class="py-16 bg-white">
+      <div class="max-w-6xl mx-auto px-6 text-center">
+        <h2 class="text-3xl font-bold mb-6 text-blue-600">
+          Why Drive with RideLink?
+        </h2>
+        <p class="mb-8 text-lg text-gray-700">
+          Already driving on other e-hailing platforms? Great! RideLink helps you
+          gain more customers without competing with those platforms. We only
+          accept neat, air-conditioned vehicles and verify all drivers —
+          ensuring steady rides and consistent earnings.
+        </p>
+        <div class="grid md:grid-cols-3 gap-8">
+          <div class="p-6 bg-gray-50 rounded shadow">
+            <h3 class="text-xl font-semibold mb-2">Consistent Riders</h3>
+            <p>Access riders who book ahead for steady income.</p>
+          </div>
+          <div class="p-6 bg-gray-50 rounded shadow">
+            <h3 class="text-xl font-semibold mb-2">Higher Earnings</h3>
+            <p>Low commission model means more profit for you.</p>
+          </div>
+          <div class="p-6 bg-gray-50 rounded shadow">
+            <h3 class="text-xl font-semibold mb-2">Driver Support</h3>
+            <p>24/7 concierge support via chat or call.</p>
+          </div>
+        </div>
+        <a
+          href="https://chat.whatsapp.com/driver-group-link"
+          target="_blank"
+          class="mt-8 inline-block bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded shadow"
+          >Join Driver WhatsApp Group</a
+        >
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="py-16 bg-gray-100 text-center">
+      <div class="max-w-4xl mx-auto px-6">
+        <h2 class="text-3xl font-bold mb-4 text-blue-600">About RideLink</h2>
+        <p class="text-lg">
+          RideLink Concierge bridges the gap between drivers and riders by
+          ensuring reliability, comfort, and reduced waiting times. We help
+          riders enjoy safe, pre-booked rides, and drivers earn more by reaching
+          serious customers — all through a simple WhatsApp-based booking
+          system.
+        </p>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="py-16 bg-white">
+      <div class="max-w-6xl mx-auto px-6">
+        <h2 class="text-3xl font-bold mb-8 text-blue-600 text-center">
+          Frequently Asked Questions
+        </h2>
+
+        <!-- Rider FAQ -->
+        <div class="mb-12">
+          <h3 class="text-2xl font-semibold mb-6 text-green-600 text-center">
+            For Riders
+          </h3>
+          <div class="space-y-6 text-gray-700">
+            <details>
+              <summary class="font-medium cursor-pointer">
+                1. What is RideLink and how is it different from Uber or Bolt?
+              </summary>
+              <p>
+                RideLink lets you pre-book trusted, vetted drivers via WhatsApp.
+                Unlike Uber/Bolt, you avoid long waits and last-minute
+                cancellations.
+              </p>
+            </details>
+            <details>
+              <summary class="font-medium cursor-pointer">
+                2. How do I book a ride?
+              </summary>
+              <p>
+                Just send us a WhatsApp message with your pickup, destination,
+                date, and time. We'll confirm and assign a verified driver.
+              </p>
+            </details>
+            <details>
+              <summary class="font-medium cursor-pointer">
+                3. Can I book for someone else?
+              </summary>
+              <p>
+                Yes, you can book for friends, family, children, or employees —
+                just provide their details.
+              </p>
+            </details>
+            <details>
+              <summary class="font-medium cursor-pointer">
+                4. Is there a mobile app?
+              </summary>
+              <p>No app is needed — everything runs smoothly through WhatsApp.</p>
+            </details>
+            <details>
+              <summary class="font-medium cursor-pointer">
+                5. Can I trust the drivers?
+              </summary>
+              <p>
+                Yes. All RideLink drivers are screened with identity checks,
+                vehicle verification, and customer ratings.
+              </p>
+            </details>
+            <details>
+              <summary class="font-medium cursor-pointer">
+                6. What kind of vehicles are used?
+              </summary>
+              <p>
+                Only neat, air-conditioned cars — sedans, SUVs, etc. No faulty
+                or substandard vehicles.
+              </p>
+            </details>
+            <details>
+              <summary class="font-medium cursor-pointer">
+                7. Is RideLink available 24/7?
+              </summary>
+              <p>
+                Yes, but advance booking is encouraged to ensure prompt service.
+              </p>
+            </details>
+            <details>
+              <summary class="font-medium cursor-pointer">
+                8. How much does a typical ride cost?
+              </summary>
+              <p>
+                Fares vary by distance and time. You’ll get a quote before
+                confirming a ride.
+              </p>
+            </details>
+            <details>
+              <summary class="font-medium cursor-pointer">
+                9. Can I cancel a booked ride?
+              </summary>
+              <p>
+                Yes, but late cancellations may attract a small fee if a driver
+                was already dispatched.
+              </p>
+            </details>
+            <details>
+              <summary class="font-medium cursor-pointer">
+                10. How do I report a bad experience?
+              </summary>
+              <p>
+                Message our WhatsApp support or use the “Report Issue” button on
+                our site.
+              </p>
+            </details>
           </div>
         </div>
 
-        <!-- Slide 2 -->
-        <div class="swiper-slide relative">
-          <img src="assets/images/driver image 2.avif" class="w-full h-full object-cover" />
-          <div class="absolute inset-0 bg-black bg-opacity-50 flex flex-col justify-center items-center text-center text-white px-4">
-            <h2 class="text-2xl md:text-4xl lg:text-5xl font-bold mb-2 animate-fadeInUp">Drive & Earn Consistently</h2>
-            <p class="text-sm md:text-lg mb-4 animate-fadeInUp delay-200">Get matched with serious riders only.</p>
-            <a href="#driver-section" class="bg-blue-600 hover:bg-blue-700 px-4 md:px-6 py-2 md:py-3 text-sm md:text-base rounded shadow animate-fadeInUp delay-400">Join as Driver</a>
+        <!-- Driver FAQ -->
+        <div>
+          <h3 class="text-2xl font-semibold mb-6 text-blue-600 text-center">
+            For Drivers
+          </h3>
+          <div class="space-y-6 text-gray-700">
+            <details>
+              <summary class="font-medium cursor-pointer">
+                1. Can I join RideLink while driving for Uber, Bolt, or LagRide?
+              </summary>
+              <p>
+                Yes! RideLink is not a competitor. We give you additional
+                bookings and steady income.
+              </p>
+            </details>
+            <details>
+              <summary class="font-medium cursor-pointer">
+                2. How do I sign up as a driver?
+              </summary>
+              <p>
+                Click “Join as Driver” and you’ll be added to our onboarding
+                WhatsApp group.
+              </p>
+            </details>
+            <details>
+              <summary class="font-medium cursor-pointer">
+                3. What documents are required?
+              </summary>
+              <p>
+                Driver’s license, vehicle papers, insurance, and photos of your
+                car.
+              </p>
+            </details>
+            <details>
+              <summary class="font-medium cursor-pointer">
+                4. What type of cars are accepted?
+              </summary>
+              <p>
+                Neat, air-conditioned cars only — preferably 2008 models and
+                above.
+              </p>
+            </details>
+            <details>
+              <summary class="font-medium cursor-pointer">
+                5. How are trips assigned to me?
+              </summary>
+              <p>
+                We send requests via WhatsApp. If you’re available, confirm and
+                get connected.
+              </p>
+            </details>
+            <details>
+              <summary class="font-medium cursor-pointer">
+                6. Is there a subscription or registration fee?
+              </summary>
+              <p>No. For now, RideLink only takes a small service fee per trip.</p>
+            </details>
+            <details>
+              <summary class="font-medium cursor-pointer">
+                7. Can I set my availability hours?
+              </summary>
+              <p>
+                Yes, you choose your working hours — mornings, evenings, or
+                weekends.
+              </p>
+            </details>
+            <details>
+              <summary class="font-medium cursor-pointer">
+                8. How do I get paid?
+              </summary>
+              <p>
+                Riders pay you directly — cash or transfer. No middleman delays.
+              </p>
+            </details>
+            <details>
+              <summary class="font-medium cursor-pointer">
+                9. What if a rider cancels late?
+              </summary>
+              <p>
+                Verified late cancellations may still come with partial
+                compensation.
+              </p>
+            </details>
+            <details>
+              <summary class="font-medium cursor-pointer">
+                10. Is there driver support?
+              </summary>
+              <p>
+                Yes. Our support team is available 24/7 via WhatsApp and phone.
+              </p>
+            </details>
           </div>
         </div>
-
-        <!-- Slide 3 -->
-        <div class="swiper-slide relative">
-          <img src="assets/images/bookings image 1.png" class="w-full h-full object-cover" />
-          <div class="absolute inset-0 bg-black bg-opacity-50 flex flex-col justify-center items-center text-center text-white px-4">
-            <h2 class="text-2xl md:text-4xl lg:text-5xl font-bold mb-2 animate-fadeInUp">Book Ahead, No Waiting</h2>
-            <p class="text-sm md:text-lg mb-4 animate-fadeInUp delay-200">Schedule rides. Save time. Arrive relaxed.</p>
-            <a href="#rider-section" class="bg-green-600 hover:bg-green-700 px-4 md:px-6 py-2 md:py-3 text-sm md:text-base rounded shadow animate-fadeInUp delay-400">Book Now</a>
-          </div>
-        </div>
-
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- RIDER SECTION -->
-  <section id="rider-section" class="py-16 bg-gray-50">
-    <div class="max-w-6xl mx-auto px-6 text-center">
-      <h2 class="text-3xl font-bold mb-6 text-blue-600">Why Ride with RideLink?</h2>
-      <div class="grid md:grid-cols-3 gap-8">
-        <div class="p-6 bg-white rounded shadow">
-          <h3 class="text-xl font-semibold mb-2">No Waiting</h3>
-          <p>Book rides in advance and never get stranded.</p>
-        </div>
-        <div class="p-6 bg-white rounded shadow">
-          <h3 class="text-xl font-semibold mb-2">Comfort First</h3>
-          <p>Clean, spacious cars driven by trained professionals.</p>
-        </div>
-        <div class="p-6 bg-white rounded shadow">
-          <h3 class="text-xl font-semibold mb-2">Safe & Reliable</h3>
-          <p>Verified drivers with ratings and ride history.</p>
-        </div>
+    <!-- CONTACT -->
+    <section id="contact" class="py-16 bg-white text-center">
+      <div class="max-w-4xl mx-auto px-6">
+        <h2 class="text-3xl font-bold mb-4 text-blue-600">Get in Touch</h2>
+        <p class="mb-6">
+          Questions? Chat with our support team any time or reach us through our
+          WhatsApp groups.
+        </p>
+        <a
+          href="mailto:support@ridelink.com"
+          class="text-blue-600 hover:underline"
+          >support@ridelink.com</a
+        >
       </div>
-      <a href="https://chat.whatsapp.com/rider-group-link" target="_blank"
-        class="mt-8 inline-block bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded shadow">Join Rider WhatsApp Group</a>
-    </div>
-  </section>
+    </section>
 
-  <!-- DRIVER SECTION -->
-  <section id="driver-section" class="py-16 bg-white">
-    <div class="max-w-6xl mx-auto px-6 text-center">
-      <h2 class="text-3xl font-bold mb-6 text-blue-600">Why Drive with RideLink?</h2>
-      <div class="grid md:grid-cols-3 gap-8">
-        <div class="p-6 bg-gray-50 rounded shadow">
-          <h3 class="text-xl font-semibold mb-2">Consistent Riders</h3>
-          <p>Access riders who book ahead for steady income.</p>
-        </div>
-        <div class="p-6 bg-gray-50 rounded shadow">
-          <h3 class="text-xl font-semibold mb-2">Higher Earnings</h3>
-          <p>Low commission model means more profit for you.</p>
-        </div>
-        <div class="p-6 bg-gray-50 rounded shadow">
-          <h3 class="text-xl font-semibold mb-2">Driver Support</h3>
-          <p>24/7 concierge support via chat or call.</p>
-        </div>
-      </div>
-      <a href="https://chat.whatsapp.com/driver-group-link" target="_blank"
-        class="mt-8 inline-block bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded shadow">Join Driver WhatsApp Group</a>
-    </div>
-  </section>
+    <!-- FOOTER -->
+    <footer class="bg-gray-800 text-gray-300 py-6 text-center">
+      <p>&copy; 2025 RideLink Concierge. All Rights Reserved.</p>
+    </footer>
 
-  <!-- ABOUT -->
-  <section id="about" class="py-16 bg-gray-100 text-center">
-    <div class="max-w-4xl mx-auto px-6">
-      <h2 class="text-3xl font-bold mb-4 text-blue-600">About RideLink</h2>
-      <p class="text-lg">RideLink Concierge is bridging the gap between drivers and riders by ensuring reliability, comfort, and reduced waiting times. Whether you're booking a ride or driving to earn, we make the process smooth and stress-free.</p>
-    </div>
-  </section>
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+    <script>
+      new Swiper(".swiper-container", {
+        loop: true,
+        autoplay: {
+          delay: 5000,
+          disableOnInteraction: false,
+        },
+        effect: "fade",
+        fadeEffect: { crossFade: true },
+      });
+    </script>
 
-  <!-- CONTACT -->
-  <section id="contact" class="py-16 bg-white text-center">
-    <div class="max-w-4xl mx-auto px-6">
-      <h2 class="text-3xl font-bold mb-4 text-blue-600">Get in Touch</h2>
-      <p class="mb-6">Questions? Chat with our support team any time or reach us through our WhatsApp groups.</p>
-      <a href="mailto:support@ridelink.com" class="text-blue-600 hover:underline">support@ridelink.com</a>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer class="bg-gray-800 text-gray-300 py-6 text-center">
-    <p>&copy; 2025 RideLink Concierge. All Rights Reserved.</p>
-  </footer>
-
-  <!-- Swiper JS -->
-  <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
-  <script>
-    new Swiper('.swiper-container', {
-      loop: true,
-      autoplay: {
-        delay: 5000,
-        disableOnInteraction: false,
-      },
-      effect: 'fade',
-      fadeEffect: { crossFade: true },
-    });
-  </script>
-
- <!--Start of Tawk.to Script-->
+    <!--Start of Tawk.to Script-->
     <script type="text/javascript">
       var Tawk_API = Tawk_API || {},
         Tawk_LoadStart = new Date();
@@ -200,8 +506,6 @@
         s0.parentNode.insertBefore(s1, s0);
       })();
     </script>
-  <!--End of Tawk.to Script-->
-
-</body>
+    <!--End of Tawk.to Script-->
+  </body>
 </html>
-
