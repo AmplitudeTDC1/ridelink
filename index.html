@@ -24,37 +24,37 @@
         <!-- Logo -->
         <a href="index.html" class="flex items-center">
           <img
-            src="assets/images/logo image 1.png"
+            src="assets/images/logo image 3.png"
             alt="RideLink Logo"
-            class="h-14 w-auto sm:h-16 md:h-20 lg:h-24 xl:h-28"
+            class="h-12 sm:h-16 md:h-20 lg:h-28 xl:h-32 w-auto"
           />
         </a>
 
         <!-- Desktop Navigation -->
         <nav class="space-x-6 hidden md:flex">
-          <a href="#rider-section" class="hover:text-blue-600 font-medium"
-            >Riders</a
-          >
-          <a href="#driver-section" class="hover:text-blue-600 font-medium"
-            >Drivers</a
-          >
-          <a href="#about" class="hover:text-blue-600 font-medium">About</a>
-          <a href="#faq" class="hover:text-blue-600 font-medium">FAQ</a>
-          <a href="#contact" class="hover:text-blue-600 font-medium">Contact</a>
+          <a href="#rider-section" class="hover:text-blue-600">Riders</a>
+          <a href="#driver-section" class="hover:text-blue-600">Drivers</a>
+          <a href="#about" class="hover:text-blue-600">About</a>
+          <a href="#faq" class="hover:text-blue-600">FAQ</a>
+          <a href="#contact" class="hover:text-blue-600">Contact</a>
         </nav>
 
-        <!-- Mobile Menu Button -->
+        <!-- Mobile Menu Button (rounded, stylish) -->
         <button
           id="menu-btn"
-          class="md:hidden text-gray-800 focus:outline-none"
+          class="md:hidden relative z-50 flex items-center justify-center w-12 h-12 rounded-full bg-gray-100 shadow hover:bg-gray-200 transition duration-300 focus:outline-none"
+          aria-expanded="false"
+          aria-label="Toggle menu"
         >
           <!-- Hamburger Icon -->
           <svg
+            id="menu-open"
             xmlns="http://www.w3.org/2000/svg"
-            class="h-8 w-8"
+            class="h-7 w-7 text-gray-700 transition-transform duration-300"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
+            aria-hidden="true"
           >
             <path
               stroke-linecap="round"
@@ -63,33 +63,157 @@
               d="M4 6h16M4 12h16M4 18h16"
             />
           </svg>
+
+          <!-- Close Icon (stylish) -->
+          <svg
+            id="menu-close"
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-7 w-7 text-gray-700 hidden transform transition-transform duration-300"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            aria-hidden="true"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
         </button>
       </div>
 
-      <!-- Mobile Navigation -->
-      <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg">
-        <nav class="flex flex-col space-y-4 p-4">
-          <a href="#rider-section" class="hover:text-blue-600 font-medium"
+      <!-- Mobile Navigation Menu -->
+      <div
+        id="mobile-menu"
+        class="max-h-0 overflow-hidden transition-all duration-500 ease-in-out bg-white shadow-lg md:hidden"
+      >
+        <nav class="flex flex-col items-start px-6 py-4 space-y-4">
+          <!-- menu-link elements start with opacity-0 so they can animate in -->
+          <a
+            href="#rider-section"
+            class="menu-link text-lg font-semibold opacity-0"
             >Riders</a
           >
-          <a href="#driver-section" class="hover:text-blue-600 font-medium"
+          <a
+            href="#driver-section"
+            class="menu-link text-lg font-semibold opacity-0"
             >Drivers</a
           >
-          <a href="#about" class="hover:text-blue-600 font-medium">About</a>
-          <a href="#faq" class="hover:text-blue-600 font-medium">FAQ</a>
-          <a href="#contact" class="hover:text-blue-600 font-medium">Contact</a>
+          <a href="#about" class="menu-link text-lg font-semibold opacity-0"
+            >About</a
+          >
+          <a href="#faq" class="menu-link text-lg font-semibold opacity-0"
+            >FAQ</a
+          >
+          <a href="#contact" class="menu-link text-lg font-semibold opacity-0"
+            >Contact</a
+          >
         </nav>
       </div>
     </header>
 
-    <!-- Script to toggle mobile menu -->
+    <!-- JavaScript for Mobile Menu Toggle -->
     <script>
-      const menuBtn = document.getElementById("menu-btn");
-      const mobileMenu = document.getElementById("mobile-menu");
+      (function () {
+        const menuBtn = document.getElementById("menu-btn");
+        const mobileMenu = document.getElementById("mobile-menu");
+        const menuOpenIcon = document.getElementById("menu-open");
+        const menuCloseIcon = document.getElementById("menu-close");
+        const menuLinks = Array.from(document.querySelectorAll(".menu-link"));
+        const delay = 120; // ms per item stagger
+        const fadeDuration = 350; // should match CSS animation length (~350ms)
 
-      menuBtn.addEventListener("click", () => {
-        mobileMenu.classList.toggle("hidden");
-      });
+        let menuOpen = false;
+        // open menu: show container then animate links in (staggered)
+        function openMenu() {
+          // show menu container (allow height animation)
+          mobileMenu.classList.remove("max-h-0");
+          mobileMenu.classList.add("max-h-screen");
+          // swap icons
+          menuOpenIcon.classList.add("hidden");
+          menuCloseIcon.classList.remove("hidden");
+          // small rotate effect
+          setTimeout(() => menuCloseIcon.classList.add("rotate-90"), 20);
+          // reveal links with staggered animation, remove Tailwind opacity-0 before animation
+          menuLinks.forEach((link, i) => {
+            setTimeout(() => {
+              link.classList.remove("opacity-0");
+              link.classList.remove("fade-out");
+              link.classList.add("fade-in");
+            }, i * delay);
+          });
+          // lock body scroll if desired
+          document.body.classList.add("no-scroll");
+          menuBtn.setAttribute("aria-expanded", "true");
+          menuOpen = true;
+        }
+
+        // close menu: animate links out in reverse order, then hide container
+        function closeMenu() {
+          // reverse-stagger fade-out
+          menuLinks.forEach((link, idx) => {
+            const i = menuLinks.length - 1 - idx; // reverse index
+            setTimeout(() => {
+              link.classList.remove("fade-in");
+              link.classList.add("fade-out");
+              // after fade-out completes, hide via opacity-0 class to reset state
+              setTimeout(() => {
+                link.classList.add("opacity-0");
+                link.classList.remove("fade-out");
+              }, fadeDuration);
+            }, idx * delay);
+          });
+
+          // swap icons back (hide close -> show open)
+          menuCloseIcon.classList.remove("rotate-90");
+          menuOpenIcon.classList.remove("hidden");
+          menuCloseIcon.classList.add("hidden");
+
+          // after animations finish, collapse the menu container
+          const totalDelay = (menuLinks.length - 1) * delay + fadeDuration + 50;
+          setTimeout(() => {
+            mobileMenu.classList.remove("max-h-screen");
+            mobileMenu.classList.add("max-h-0");
+            document.body.classList.remove("no-scroll");
+          }, totalDelay);
+
+          menuBtn.setAttribute("aria-expanded", "false");
+          menuOpen = false;
+        }
+
+        // single toggle handler
+        menuBtn.addEventListener("click", (e) => {
+          e.stopPropagation(); // prevent immediate document.click from firing
+          if (menuOpen) closeMenu();
+          else openMenu();
+        });
+
+        // close when clicking outside menu or on a menu link
+        document.addEventListener("click", (e) => {
+          if (!menuOpen) return;
+          const clickedInsideMenu =
+            mobileMenu.contains(e.target) || menuBtn.contains(e.target);
+          if (!clickedInsideMenu) {
+            closeMenu();
+          }
+        });
+
+        // close menu when a menu link is clicked (immediate close)
+        menuLinks.forEach((link) => {
+          link.addEventListener("click", () => {
+            if (menuOpen) closeMenu();
+          });
+        });
+
+        // keyboard accessibility: close on ESC
+        document.addEventListener("keydown", (e) => {
+          if (e.key === "Escape" && menuOpen) {
+            closeMenu();
+          }
+        });
+      })();
     </script>
 
     <!-- HERO + SWIPER SECTION -->
@@ -114,9 +238,13 @@
                 Clean vehicles, on-time bookings.
               </p>
               <a
-                href="#rider-section"
+                href="https://wa.me/2348080863396?text=I%20want%20to%20join%20as%20a%20RideLink%20Rider"
+                target="_blank"
                 class="bg-green-600 hover:bg-green-700 px-4 md:px-6 py-2 md:py-3 text-sm md:text-base rounded shadow animate-fadeInUp delay-400"
-                >Join as Rider</a
+              >
+                Join as Rider
+              </a>
+
               >
             </div>
           </div>
@@ -139,9 +267,13 @@
                 Get matched with serious riders only.
               </p>
               <a
-                href="#driver-section"
+                href="https://wa.me/2348080863396?text=I%20want%20to%20sign%20up%20as%20a%20RideLink%20Driver"
+                target="_blank"
                 class="bg-blue-600 hover:bg-blue-700 px-4 md:px-6 py-2 md:py-3 text-sm md:text-base rounded shadow animate-fadeInUp delay-400"
-                >Join as Driver</a
+              >
+                Join as Driver
+              </a>
+
               >
             </div>
           </div>
@@ -164,9 +296,13 @@
                 Schedule rides. Save time. Arrive relaxed.
               </p>
               <a
-                href="#rider-section"
+                href="https://wa.me/2348080863396?text=I%20want%20to%20book%20a%20RideLink%20ride%20now"
+                target="_blank"
                 class="bg-green-600 hover:bg-green-700 px-4 md:px-6 py-2 md:py-3 text-sm md:text-base rounded shadow animate-fadeInUp delay-400"
-                >Book Now</a
+              >
+                Book Now
+              </a>
+
               >
             </div>
           </div>
@@ -181,10 +317,10 @@
           Why Ride with RideLink?
         </h2>
         <p class="mb-8 text-lg text-gray-700">
-          RideLink is not in competition with other e-hailing providers — instead, we
-          complement them by helping you connect with vetted drivers and clean,
-          air-conditioned vehicles. With us, you cut down waiting time, ride
-          only in comfort, and enjoy the assurance of safety.
+          RideLink is not in competition with other e-hailing providers —
+          instead, we complement them by helping you connect with vetted drivers
+          and clean, air-conditioned vehicles. With us, you cut down waiting
+          time, ride only in comfort, and enjoy the assurance of safety.
         </p>
         <div class="grid md:grid-cols-3 gap-8">
           <div class="p-6 bg-white rounded shadow">
@@ -216,9 +352,9 @@
           Why Drive with RideLink?
         </h2>
         <p class="mb-8 text-lg text-gray-700">
-          Already driving on other e-hailing platforms? Great! RideLink helps you
-          gain more customers without competing with those platforms. We only
-          accept neat, air-conditioned vehicles and verify all drivers —
+          Already driving on other e-hailing platforms? Great! RideLink helps
+          you gain more customers without competing with those platforms. We
+          only accept neat, air-conditioned vehicles and verify all drivers —
           ensuring steady rides and consistent earnings.
         </p>
         <div class="grid md:grid-cols-3 gap-8">
@@ -303,7 +439,9 @@
               <summary class="font-medium cursor-pointer">
                 4. Is there a mobile app?
               </summary>
-              <p>No app is needed — everything runs smoothly through WhatsApp.</p>
+              <p>
+                No app is needed — everything runs smoothly through WhatsApp.
+              </p>
             </details>
             <details>
               <summary class="font-medium cursor-pointer">
@@ -416,7 +554,9 @@
               <summary class="font-medium cursor-pointer">
                 6. Is there a subscription or registration fee?
               </summary>
-              <p>No. For now, RideLink only takes a small service fee per trip.</p>
+              <p>
+                No. For now, RideLink only takes a small service fee per trip.
+              </p>
             </details>
             <details>
               <summary class="font-medium cursor-pointer">
